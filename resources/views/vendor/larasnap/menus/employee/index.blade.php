@@ -16,10 +16,10 @@
                     @method('POST')
                     @csrf
 			   <div class="col-md-2 pad-0">
-                   @canAccess('employee.create')
+            @canAccess('employee.create')
                         <a href="{{ route('employee.create') }}" title="Add New Employee" class="btn btn-primary btn-sm"><i aria-hidden="true" class="fa fa-plus"></i> Add New Employee
                         </a>
-                   @endcanAccess
+            @endcanAccess
 			   </div>
 				<!-- list filters -->
 				<div class="col-md-10 filters">
@@ -32,8 +32,10 @@
                      <thead>
                         <tr>
                            <th>ID</th>
-                           <th>Name(Slug)</th>
-                           <th>Label</th>
+                           <th>Name</th>
+                           <th>email</th>
+                           <th>Designation</th>
+                           <th>Profile Image</th>
                            <th>Actions</th>
                         </tr>
                      </thead>
@@ -42,18 +44,15 @@
                         <tr>
                            <td>{{ $employee->id }}</td>
                            <td>{{ $employee->name }}</td>
-                           <td>{{ $employee->label }}</td>
+                           <td>{{ $employee->email }}</td>
+                           <td>{{ $employee->designation }}</td>
+                           <td><img  src="{{asset('/storage/image/'.$employee->profile_image)}}" width="100px" height="100px"></td>
                            <td>
 						       @showData('employee', $employee->name)
                                @canAccess('employee.edit')
-							  <a href="{{ route('employee.edit', $employee->id) }}" title="Edit Role"><button class="btn btn-primary btn-sm" type="button"><i aria-hidden="true" class="fa fa-pencil-square-o"></i></button></a>
+							  <a href="{{ route('employee.edit', $employee->id) }}" title="Edit Employee"><button class="btn btn-primary btn-sm" type="button"><i aria-hidden="true" class="fa fa-pencil-square-o"></i></button></a>
                                @endcanAccess
-                               @canAccess('employee.assignpermission_create')
-							  <a href="{{ route('employee.assignpermission_create', $employee->id) }}" title="Assign Permissions"><button class="btn btn-success btn-sm" type="button"><i aria-hidden="true" class="fa fa-key"></i></button></a>
-                               @endcanAccess
-                               @canAccess('employee.assignscreen_create')
-                               <a href="{{ route('employee.assignscreen_create', $employee->id) }}" title="Assign Screens"><button class="btn btn-warning btn-sm" type="button"><i aria-hidden="true" class="fa fa-tv"></i></button></a>
-                               @endcanAccess
+                              
                                @canAccess('employee.destroy')
                                <a href="#" onclick= "return individualDelete('{{ $employee->id }}')" title="Delete Employee"><button class="btn btn-danger btn-sm" type="button"><i aria-hidden="true" class="fa fa-trash"></i></button></a>
                                @endcanAccess
@@ -69,7 +68,7 @@
                      </tbody>
                   </table>
                   <div class="pagination">
-					{{ $employees->links() }}
+					
 				  </div>
                </div>
 			   </form>
